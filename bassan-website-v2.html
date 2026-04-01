@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sergio Bassan — Trattori per passione dal 1957</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green:#2D6A2D; --green-light:#3D8C3D; --green-dark:#1A3F1A;
+  --gold:#C8A84B; --gold-light:#E8C96A;
+  --cream:#F7F4EE; --warm:#FDFCF9;
+  --charcoal:#1C1C1A; --mid:#4A4A45; --light-gray:#E8E5DF;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--charcoal);overflow-x:hidden;}
+
+/* ── PAGES ── */
+.page{position:fixed;inset:0;overflow-y:auto;transition:transform .58s cubic-bezier(.77,0,.18,1),opacity .46s ease;z-index:1;background:var(--warm);}
+.page.active{transform:translateX(0);opacity:1;z-index:2;}
+.page.hidden-right{transform:translateX(100%);opacity:0;pointer-events:none;}
+.page.hidden-left{transform:translateX(-48px);opacity:0;pointer-events:none;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3.5rem;height:68px;
+  background:rgba(253,252,249,.93);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(200,168,75,.2);
+}
+.nav-logo{display:flex;flex-direction:column;cursor:pointer;text-decoration:none;}
+.nav-logo-main{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:900;letter-spacing:1px;color:var(--green-dark);line-height:1;}
+.nav-logo-sub{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-top:2px;}
+.nav-links{display:flex;align-items:center;gap:.1rem;list-style:none;}
+.nav-links a,.nav-links button{
+  font-size:.7rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--mid);text-decoration:none;padding:8px 14px;
+  border:none;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:color .2s;position:relative;
+}
+.nav-links a::after,.nav-links button::after{
+  content:'';position:absolute;bottom:2px;left:14px;right:14px;
+  height:1px;background:var(--gold);transform:scaleX(0);transition:transform .25s;
+}
+.nav-links a:hover,.nav-links button:hover{color:var(--green);}
+.nav-links a:hover::after,.nav-links button:hover::after{transform:scaleX(1);}
+.nav-cta{background:var(--green)!important;color:#fff!important;padding:9px 20px!important;font-size:.68rem!important;transition:background .2s!important;}
+.nav-cta:hover{background:var(--green-dark)!important;}
+.nav-cta::after{display:none!important;}
+
+/* ── SHARED BUTTONS ── */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--green);color:#fff;text-decoration:none;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;padding:13px 26px;
+  transition:background .22s,transform .2s;
+}
+.btn-primary:hover{background:var(--green-dark);transform:translateY(-2px);}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1.5px solid var(--green);color:var(--green);
+  background:transparent;text-decoration:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;padding:13px 26px;
+  transition:background .22s,color .22s,transform .2s;
+}
+.btn-outline:hover{background:var(--green);color:#fff;transform:translateY(-2px);}
+
+/* ── SECTION HELPERS ── */
+.section{padding:6.5rem 3.5rem;}
+.s-label{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;}
+.s-label-line{width:28px;height:1px;background:var(--gold);}
+.s-label-text{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.s-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.1;color:var(--green-dark);}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px;position:relative;overflow:hidden;}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:5.5rem 3.5rem;position:relative;z-index:2;}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:2rem;}
+.hero-eyebrow-line{width:36px;height:1px;background:var(--gold);}
+.hero-eyebrow-text{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,5.5vw,5.5rem);font-weight:900;line-height:1.02;color:var(--green-dark);margin-bottom:1.5rem;}
+.hero-title em{font-style:italic;color:var(--green-light);}
+.hero-subtitle{font-size:.95rem;font-weight:300;color:var(--mid);line-height:1.78;max-width:440px;margin-bottom:2.5rem;}
+.hero-buttons{display:flex;gap:1rem;flex-wrap:wrap;}
+.hero-stats{position:absolute;bottom:3.5rem;left:3.5rem;display:flex;gap:2.5rem;}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--green-dark);line-height:1;}
+.stat-label{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-top:3px;}
+
+/* hero right image panel */
+.hero-right{position:relative;overflow:hidden;background:var(--green-dark);}
+.hero-right-img{width:100%;height:100%;object-fit:cover;opacity:.6;transition:opacity .4s;}
+.hero-right:hover .hero-right-img{opacity:.75;}
+.hero-right-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(253,252,249,.15) 0%,transparent 35%),
+             linear-gradient(135deg,rgba(45,106,45,.2) 0%,transparent 60%);
+}
+.hero-badge{
+  position:absolute;bottom:3rem;right:3rem;
+  background:var(--gold);padding:1.25rem 1.75rem;
+}
+.hero-badge-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--green-dark);line-height:1;}
+.hero-badge-label{font-size:.55rem;letter-spacing:2px;text-transform:uppercase;color:var(--green-dark);font-weight:600;margin-top:4px;}
+
+/* ── NAV CARDS ── */
+.nav-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3.5rem;}
+.nav-card{
+  background:var(--cream);padding:2.25rem 1.75rem;cursor:pointer;
+  transition:transform .28s,box-shadow .28s;position:relative;overflow:hidden;
+  border:1px solid transparent;
+}
+.nav-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(45,106,45,.1);border-color:var(--gold);}
+.nav-card::before{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .28s;transform-origin:left;}
+.nav-card:hover::before{transform:scaleX(1);}
+.nav-card-icon{font-size:2.2rem;margin-bottom:1.25rem;display:block;}
+.nav-card-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--green-dark);margin-bottom:.6rem;}
+.nav-card-desc{font-size:.8rem;color:var(--mid);line-height:1.62;}
+.nav-card-arrow{position:absolute;bottom:1.25rem;right:1.25rem;color:var(--gold);transition:transform .2s;}
+.nav-card:hover .nav-card-arrow{transform:translate(4px,-4px);}
+
+/* ── ABOUT STRIP ── */
+.about-strip{background:var(--green-dark);padding:6rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;overflow:hidden;}
+.about-strip::after{content:'1957';position:absolute;right:-1.5rem;bottom:-2rem;font-family:'Playfair Display',serif;font-size:16rem;font-weight:900;color:rgba(255,255,255,.03);pointer-events:none;line-height:1;}
+.about-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:900;color:var(--cream);line-height:1.15;margin-bottom:1.25rem;}
+.about-body{font-size:.9rem;font-weight:300;color:rgba(247,244,238,.72);line-height:1.82;margin-bottom:1.75rem;}
+.about-numbers{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.about-num-val{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:var(--gold);line-height:1;}
+.about-num-label{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:rgba(247,244,238,.55);margin-top:5px;}
+
+/* ── PRODUCT CARDS ── */
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem;}
+.product-card{background:var(--cream);overflow:hidden;cursor:pointer;transition:transform .28s,box-shadow .28s;border:1px solid var(--light-gray);}
+.product-card:hover{transform:translateY(-6px);box-shadow:0 18px 38px rgba(0,0,0,.1);}
+.product-card-img{height:230px;overflow:hidden;position:relative;background:var(--charcoal);}
+.product-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.product-card:hover .product-card-img img{transform:scale(1.06);}
+.product-overlay{
+  position:absolute;inset:0;
+  background:rgba(45,106,45,.75);
+  opacity:0;transition:opacity .28s;
+  display:flex;align-items:center;justify-content:center;
+}
+.product-card:hover .product-overlay{opacity:1;}
+.product-overlay-text{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.5);padding:8px 18px;}
+.product-body{padding:1.75rem;}
+.product-cat{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;}
+.product-name{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--green-dark);margin-bottom:.6rem;}
+.product-desc{font-size:.8rem;color:var(--mid);line-height:1.62;}
+.product-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem;}
+.tag{font-size:.58rem;letter-spacing:1px;text-transform:uppercase;color:var(--mid);border:1px solid var(--light-gray);padding:3px 9px;}
+
+/* ── SECTORS ── */
+.sectors{display:grid;grid-template-columns:1fr 1fr;padding:0;}
+.sector{padding:5.5rem 3.5rem;position:relative;min-height:55vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;cursor:pointer;transition:padding-bottom .35s;}
+.sector:hover{padding-bottom:5.5rem;}
+.sector:first-child{border-right:1px solid rgba(200,168,75,.2);}
+.sector-num{position:absolute;top:2.5rem;left:3.5rem;font-family:'Playfair Display',serif;font-size:9rem;font-weight:900;color:rgba(200,168,75,.07);line-height:1;}
+.sector-tag{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;}
+.sector-title{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--green-dark);line-height:1;margin-bottom:.8rem;}
+.sector-desc{font-size:.88rem;color:var(--mid);line-height:1.72;max-width:380px;margin-bottom:1.75rem;}
+.sector-list{list-style:none;margin-bottom:2rem;}
+.sector-list li{font-size:.78rem;color:var(--mid);padding:5px 0;border-bottom:1px solid var(--light-gray);display:flex;align-items:center;gap:8px;}
+.sector-list li::before{content:'';width:5px;height:1px;background:var(--gold);flex-shrink:0;}
+
+/* ── LOCATIONS ── */
+.locations-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:3rem;}
+.loc-card{padding:1.75rem;border:1px solid var(--light-gray);position:relative;transition:border-color .28s;}
+.loc-card:hover{border-color:var(--green);}
+.loc-card::before{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--green);transition:height .28s;}
+.loc-card:hover::before{height:100%;}
+.loc-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--green-dark);margin-bottom:.65rem;}
+.loc-detail{font-size:.78rem;color:var(--mid);line-height:1.7;}
+.loc-detail a{color:var(--green);text-decoration:none;}
+
+/* ── PARTNERS ── */
+.partners-row{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2.5rem;}
+.partner-chip{background:var(--warm);border:1px solid var(--light-gray);padding:9px 18px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;color:var(--mid);transition:border-color .2s,color .2s;}
+.partner-chip:hover{border-color:var(--green);color:var(--green);}
+
+/* ── SOCIAL ICONS — large, always visible ── */
+.social-bar{display:flex;gap:.75rem;align-items:center;margin-top:1.75rem;}
+.social-link{
+  display:flex;align-items:center;justify-content:center;
+  width:46px;height:46px;
+  background:rgba(45,106,45,.12);
+  border:1.5px solid rgba(45,106,45,.35);
+  border-radius:6px;
+  color:var(--green-dark);text-decoration:none;
+  transition:background .22s,border-color .22s,transform .2s,color .22s;
+}
+.social-link:hover{background:var(--green);border-color:var(--green);color:#fff;transform:translateY(-3px);}
+.social-link svg{width:22px;height:22px;fill:currentColor;}
+/* social in dark sections */
+.social-link-light{
+  display:flex;align-items:center;justify-content:center;
+  width:46px;height:46px;
+  background:rgba(255,255,255,.1);
+  border:1.5px solid rgba(255,255,255,.3);
+  border-radius:6px;
+  color:var(--cream);text-decoration:none;
+  transition:background .22s,border-color .22s,transform .2s;
+}
+.social-link-light:hover{background:var(--gold);border-color:var(--gold);color:var(--green-dark);transform:translateY(-3px);}
+.social-link-light svg{width:22px;height:22px;fill:currentColor;}
+
+/* ── FOOTER ── */
+footer{background:var(--charcoal);padding:4rem 3.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;}
+.footer-logo-main{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--cream);margin-bottom:3px;}
+.footer-logo-sub{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1.25rem;}
+.footer-desc{font-size:.8rem;color:rgba(247,244,238,.5);line-height:1.7;max-width:260px;margin-bottom:1.5rem;}
+.footer-col-title{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;}
+.footer-links{list-style:none;}
+.footer-links li{margin-bottom:.65rem;}
+.footer-links a,.footer-links button{font-size:.8rem;color:rgba(247,244,238,.5);text-decoration:none;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color .2s;padding:0;}
+.footer-links a:hover,.footer-links button:hover{color:var(--cream);}
+.footer-bottom{background:var(--charcoal);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 3.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-copy{font-size:.7rem;color:rgba(247,244,238,.35);}
+
+/* ══════════════ INNER PAGES ══════════════ */
+.page-hero{padding:9.5rem 3.5rem 5rem;position:relative;background:var(--green-dark);overflow:hidden;}
+.page-hero::before{content:attr(data-ghost);position:absolute;right:-2rem;bottom:-1.5rem;font-family:'Playfair Display',serif;font-size:13rem;font-weight:900;color:rgba(255,255,255,.04);white-space:nowrap;pointer-events:none;line-height:1;}
+.page-hero-accent{position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);}
+.back-btn{display:inline-flex;align-items:center;gap:8px;color:rgba(247,244,238,.6);background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:2rem;transition:color .2s;position:relative;z-index:2;}
+.back-btn:hover{color:var(--gold);}
+.page-eyebrow{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;position:relative;z-index:2;}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5vw,5rem);font-weight:900;color:var(--cream);line-height:1.02;position:relative;z-index:2;max-width:700px;}
+.page-subtitle{font-size:.95rem;font-weight:300;color:rgba(247,244,238,.65);line-height:1.75;max-width:520px;margin-top:1.25rem;position:relative;z-index:2;}
+.page-content{padding:5rem 3.5rem 7rem;}
+
+/* ── PRODOTTO DETAIL ── */
+.detail-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:4rem;align-items:start;}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.gallery-main{grid-column:span 2;height:340px;overflow:hidden;background:var(--charcoal);}
+.gallery-main img{width:100%;height:100%;object-fit:cover;}
+.gallery-thumb{height:180px;overflow:hidden;background:var(--charcoal);cursor:pointer;}
+.gallery-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s;}
+.gallery-thumb:hover img{transform:scale(1.05);}
+.spec-table{width:100%;border-collapse:collapse;margin-top:1.5rem;}
+.spec-table th{background:var(--green-dark);color:var(--cream);padding:10px 14px;text-align:left;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;font-weight:500;}
+.spec-table td{padding:12px 14px;border-bottom:1px solid var(--light-gray);font-size:.82rem;color:var(--mid);}
+.spec-table tr:hover td{background:var(--cream);}
+.spec-td-label{color:var(--charcoal)!important;font-weight:600;}
+
+/* ── USATO / STORE CARDS ── */
+.store-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.store-card{background:var(--cream);overflow:hidden;cursor:pointer;transition:transform .28s,box-shadow .28s;border:1px solid var(--light-gray);}
+.store-card:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(0,0,0,.1);}
+.store-card-img{height:210px;overflow:hidden;position:relative;background:var(--charcoal);}
+.store-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.store-card:hover .store-card-img img{transform:scale(1.06);}
+.store-badge{position:absolute;top:.75rem;left:.75rem;background:var(--gold);color:var(--green-dark);font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;}
+.store-card-body{padding:1.5rem;}
+.store-card-cat{font-family:'DM Mono',monospace;font-size:.57rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem;}
+.store-card-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--green-dark);margin-bottom:.5rem;}
+.store-card-desc{font-size:.78rem;color:var(--mid);line-height:1.58;margin-bottom:1rem;}
+.store-card-cta{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;transition:gap .2s;}
+.store-card:hover .store-card-cta{gap:10px;}
+
+/* ── FILTER BAR ── */
+.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.filter-btn{background:none;border:1.5px solid var(--light-gray);padding:7px 16px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);transition:all .2s;}
+.filter-btn.active,.filter-btn:hover{border-color:var(--green);color:var(--green);background:rgba(45,106,45,.05);}
+
+/* ── CONTATTI ── */
+.contatti-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;}
+.form-group{margin-bottom:1.25rem;}
+.form-label{display:block;font-size:.62rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:7px;}
+.form-input,.form-select,.form-textarea{width:100%;padding:11px 15px;border:1.5px solid var(--light-gray);background:var(--warm);color:var(--charcoal);font-family:'DM Sans',sans-serif;font-size:.88rem;transition:border-color .2s;outline:none;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--green);}
+.form-textarea{resize:vertical;min-height:110px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.contact-box{background:var(--cream);padding:1.75rem 2rem;display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:1rem;border-left:2px solid var(--gold);}
+.contact-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px;}
+.contact-title{font-weight:600;color:var(--green-dark);margin-bottom:4px;font-size:.88rem;}
+.contact-text{font-size:.78rem;color:var(--mid);line-height:1.68;}
+.contact-text a{color:var(--green);text-decoration:none;}
+
+/* ── ASSISTENZA TABLE ── */
+.branch-table{width:100%;border-collapse:collapse;margin-top:1.75rem;}
+.branch-table th{background:var(--green-dark);color:var(--cream);padding:11px 15px;text-align:left;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;font-weight:500;}
+.branch-table td{padding:13px 15px;border-bottom:1px solid var(--light-gray);font-size:.82rem;color:var(--mid);}
+.branch-table tr:hover td{background:var(--cream);}
+.branch-name{color:var(--charcoal);font-weight:600;}
+
+/* ── CHI SIAMO ── */
+.chisiamo-grid{display:grid;grid-template-columns:1fr 1fr;gap:5.5rem;align-items:center;margin-bottom:4rem;}
+.chisiamo-body p{font-size:.9rem;font-weight:300;color:var(--mid);line-height:1.82;margin-bottom:1.1rem;}
+.chisiamo-body p strong{color:var(--charcoal);font-weight:600;}
+.chisiamo-img{overflow:hidden;}
+.chisiamo-img img{width:100%;height:420px;object-fit:cover;display:block;transition:transform .4s;}
+.chisiamo-img:hover img{transform:scale(1.03);}
+.nums-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3rem;}
+.num-box{background:var(--cream);padding:2rem 1.5rem;border-top:2px solid var(--gold);}
+.num-val{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:var(--green);line-height:1;}
+.num-label{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-top:5px;}
+
+/* ── PRECISION AG ── */
+.prec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.prec-card{background:var(--cream);padding:2.25rem 2rem;border-bottom:2px solid transparent;transition:transform .28s,border-color .28s;}
+.prec-card:hover{transform:translateY(-5px);border-bottom-color:var(--gold);}
+.prec-card.featured{background:var(--green-dark);color:var(--cream);border:2px solid var(--gold);}
+.prec-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--gold);line-height:1;margin-bottom:.9rem;}
+.prec-title{font-size:1rem;font-weight:700;color:var(--green-dark);margin-bottom:.7rem;}
+.prec-card.featured .prec-title{color:var(--cream);}
+.prec-desc{font-size:.8rem;color:var(--mid);line-height:1.65;margin-bottom:1.25rem;}
+.prec-card.featured .prec-desc{color:rgba(247,244,238,.68);}
+.prec-includes{list-style:none;}
+.prec-includes li{font-size:.77rem;color:var(--mid);padding:5px 0;border-bottom:1px solid var(--light-gray);display:flex;align-items:center;gap:7px;}
+.prec-card.featured .prec-includes li{color:rgba(247,244,238,.65);border-bottom-color:rgba(255,255,255,.1);}
+.prec-includes li::before{content:'→';color:var(--gold);font-size:.7rem;}
+.prec-price{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;color:var(--green);margin-top:1.25rem;}
+.prec-card.featured .prec-price{color:var(--gold);}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .58s ease,transform .58s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;} .hero-right{display:none;}
+  .nav-cards{grid-template-columns:repeat(2,1fr);}
+  .about-strip,.contatti-grid,.chisiamo-grid,.detail-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .sectors{grid-template-columns:1fr;}
+  .products-grid,.store-grid,.prec-grid{grid-template-columns:repeat(2,1fr);}
+  footer{grid-template-columns:1fr 1fr;}
+  .nums-row{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:768px){
+  nav{padding:0 1.25rem;} .nav-links{display:none;}
+  .section,.page-content{padding:4rem 1.25rem;}
+  .page-hero{padding:8rem 1.25rem 4rem;}
+  .hero-left{padding:3.5rem 1.25rem;}
+  .nav-cards,.products-grid,.store-grid,.prec-grid{grid-template-columns:1fr;}
+  footer{grid-template-columns:1fr;padding:3rem 1.25rem;}
+  .footer-bottom{padding:1.25rem;flex-direction:column;text-align:center;}
+  .hero-stats{bottom:2rem;left:1.25rem;gap:1.75rem;}
+  .gallery{grid-template-columns:1fr;} .gallery-main{grid-column:span 1;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav>
+  <div class="nav-logo" onclick="goHome()">
+    <span class="nav-logo-main">Sergio Bassan</span>
+    <span class="nav-logo-sub">Trattori per passione dal 1957</span>
+  </div>
+  <ul class="nav-links">
+    <li><button onclick="showPage('chisiamo')">Chi siamo</button></li>
+    <li><button onclick="showPage('prodotti')">Prodotti</button></li>
+    <li><button onclick="showPage('usato')">Usato</button></li>
+    <li><button onclick="showPage('noleggio')">Noleggio</button></li>
+    <li><button onclick="showPage('assistenza')">Assistenza</button></li>
+    <li><button onclick="showPage('precision')">Precision Ag</button></li>
+    <li><button class="nav-cta" onclick="showPage('contatti')">Contatti</button></li>
+  </ul>
+</nav>
+
+
+<!-- ══════════════════════
+     HOME
+══════════════════════ -->
+<div id="page-home" class="page active">
+
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Distributor John Deere · Nordest Italia</span>
+      </div>
+      <h1 class="hero-title">Dalla terra<br>alle <em>macchine</em><br>che la lavorano.</h1>
+      <p class="hero-subtitle">Dal 1957 supportiamo gli agricoltori del Veneto e del Friuli con macchine, tecnologia e assistenza d'eccellenza. 9 sedi, 180 persone, 18.000 clienti.</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="showPage('prodotti')">Scopri i prodotti →</button>
+        <button class="btn-outline" onclick="showPage('usato')">Vedi usato</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">1957</div><div class="stat-label">Fondazione</div></div>
+        <div><div class="stat-num">180</div><div class="stat-label">Collaboratori</div></div>
+        <div><div class="stat-num">9</div><div class="stat-label">Sedi</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img class="hero-right-img" src="Bassan Immagini/JohnDeereSerie9000.jpg" alt="John Deere Serie 9000">
+      <div class="hero-right-overlay"></div>
+      <div class="hero-badge">
+        <div class="hero-badge-num">107M€</div>
+        <div class="hero-badge-label">Fatturato 2023</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK NAV -->
+  <section>
+    <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">I nostri servizi</span></div>
+    <h2 class="s-title">Un partner completo<br>per l'agricoltura moderna.</h2>
+    <div class="nav-cards">
+      <div class="nav-card reveal" onclick="showPage('prodotti')">
+        <span class="nav-card-icon">🚜</span>
+        <div class="nav-card-title">Macchine nuove</div>
+        <p class="nav-card-desc">Trattori, mietitrebbie, telescopici, seminatrici e molto altro. Gamma completa John Deere e altri brand leader.</p>
+        <span class="nav-card-arrow">↗</span>
+      </div>
+      <div class="nav-card reveal" style="transition-delay:.08s" onclick="showPage('usato')">
+        <span class="nav-card-icon">🔄</span>
+        <div class="nav-card-title">Usato selezionato</div>
+        <p class="nav-card-desc">Parco macchine usate revisionate e certificate. Trattori, mietitrebbie, telescopici e attrezzature.</p>
+        <span class="nav-card-arrow">↗</span>
+      </div>
+      <div class="nav-card reveal" style="transition-delay:.16s" onclick="showPage('noleggio')">
+        <span class="nav-card-icon">📋</span>
+        <div class="nav-card-title">Noleggio</div>
+        <p class="nav-card-desc">Trattori, escavatori, sollevatori e attrezzature a noleggio flessibile. Giornaliero, settimanale o stagionale.</p>
+        <span class="nav-card-arrow">↗</span>
+      </div>
+      <div class="nav-card reveal" style="transition-delay:.24s" onclick="showPage('precision')">
+        <span class="nav-card-icon">🛰️</span>
+        <div class="nav-card-title">Precision Ag</div>
+        <p class="nav-card-desc">Guida satellitare John Deere, monitor di campo e sistemi di connessione per il massimo della resa.</p>
+        <span class="nav-card-arrow">↗</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div class="about-strip">
+    <div>
+      <div class="s-label"><div class="s-label-line"></div><span class="s-label-text" style="color:var(--gold)">La nostra storia</span></div>
+      <h2 class="about-title">Passione per la terra<br>da oltre 65 anni.</h2>
+      <p class="about-body">Fondata nel 1957 da Piero Bassan, la Sergio Bassan S.r.l. è oggi uno dei più importanti distributori italiani del marchio John Deere. Dal Veneto al Friuli-Venezia Giulia, serviamo agricoltori e professionisti del movimento terra con eccellenza e dedizione.</p>
+      <button class="btn-primary" onclick="showPage('chisiamo')">La nostra storia →</button>
+    </div>
+    <div class="about-numbers reveal">
+      <div><div class="about-num-val">180</div><div class="about-num-label">Collaboratori</div></div>
+      <div><div class="about-num-val">9</div><div class="about-num-label">Sedi operative</div></div>
+      <div><div class="about-num-val">18K+</div><div class="about-num-label">Clienti attivi</div></div>
+      <div><div class="about-num-val">107M€</div><div class="about-num-label">Fatturato 2023</div></div>
+    </div>
+  </div>
+
+  <!-- PRODOTTI IN EVIDENZA -->
+  <section style="background:var(--cream);">
+    <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">Prodotti in evidenza</span></div>
+    <h2 class="s-title">Le macchine che fanno<br>la differenza.</h2>
+    <div class="products-grid">
+      <div class="product-card reveal" onclick="showPage('jd-serie9000')">
+        <div class="product-card-img">
+          <img src="Bassan Immagini/JohnDeereSerie9000.jpg" alt="John Deere Serie 9000">
+          <div class="product-overlay"><div class="product-overlay-text">Scopri di più</div></div>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">John Deere · Trattori</div>
+          <div class="product-name">Serie 9000</div>
+          <p class="product-desc">Trattori di grande potenza per le lavorazioni più impegnative. Tecnologia e affidabilità John Deere.</p>
+          <div class="product-tags"><span class="tag">Alta potenza</span><span class="tag">Precision Ag</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" style="transition-delay:.08s" onclick="showPage('jd-serie8000')">
+        <div class="product-card-img">
+          <img src="Bassan Immagini/JohnDeereSerie8000.png" alt="John Deere Serie 8000">
+          <div class="product-overlay"><div class="product-overlay-text">Scopri di più</div></div>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">John Deere · Trattori</div>
+          <div class="product-name">Serie 8000</div>
+          <p class="product-desc">Versatilità e potenza per ogni tipo di lavorazione. La serie più apprezzata dagli agricoltori del Nordest.</p>
+          <div class="product-tags"><span class="tag">Versatile</span><span class="tag">Made in USA</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" style="transition-delay:.16s" onclick="showPage('jd-f8200')">
+        <div class="product-card-img">
+          <img src="Bassan Immagini/JohnDeereF8200.jpg" alt="John Deere F8200">
+          <div class="product-overlay"><div class="product-overlay-text">Scopri di più</div></div>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">John Deere · Raccolta</div>
+          <div class="product-name">F8200 Mietitrebbia</div>
+          <p class="product-desc">Mietitrebbia a flusso assiale per la massima resa in campo. Tecnologia avanzata per ogni coltura.</p>
+          <div class="product-tags"><span class="tag">Raccolta</span><span class="tag">Flusso assiale</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <button class="btn-primary" onclick="showPage('prodotti')">Vedi tutti i prodotti →</button>
+    </div>
+  </section>
+
+  <!-- SECTORS -->
+  <div class="sectors">
+    <div class="sector" style="background:var(--cream);" onclick="showPage('prodotti')">
+      <div class="sector-num">01</div>
+      <div class="sector-tag">Divisione</div>
+      <div class="sector-title">Agricoltura</div>
+      <p class="sector-desc">Trattori, mietitrebbie, seminatrici, attrezzature e Precision Ag. Tutto per il lavoro in campo.</p>
+      <ul class="sector-list">
+        <li>Trattori John Deere (tutte le serie)</li>
+        <li>Mietitrebbie e macchine da raccolta</li>
+        <li>Seminatrici Väderstad e Ploeger</li>
+        <li>Attrezzature e macchine per la fienagione</li>
+      </ul>
+      <button class="btn-primary">Esplora →</button>
+    </div>
+    <div class="sector" style="background:var(--light-gray);" onclick="showPage('prodotti')">
+      <div class="sector-num">02</div>
+      <div class="sector-tag">Divisione</div>
+      <div class="sector-title">Movimento terra</div>
+      <p class="sector-desc">Escavatori Kobelco e telescopici Kramer per cantieri, allevamenti e movimenti terra professionali.</p>
+      <ul class="sector-list">
+        <li>Escavatori cingolati e gommati Kobelco</li>
+        <li>Sollevatori telescopici Kramer</li>
+        <li>Attrezzature da cantiere</li>
+        <li>Noleggio macchine movimento terra</li>
+      </ul>
+      <button class="btn-primary">Esplora →</button>
+    </div>
+  </div>
+
+  <!-- PARTNERS -->
+  <section>
+    <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">I nostri brand</span></div>
+    <h2 class="s-title" style="margin-bottom:0">I migliori marchi<br>del settore.</h2>
+    <div class="partners-row">
+      <div class="partner-chip">John Deere</div><div class="partner-chip">Kobelco</div>
+      <div class="partner-chip">Kramer</div><div class="partner-chip">Väderstad</div>
+      <div class="partner-chip">Ploeger</div><div class="partner-chip">Bednar</div>
+      <div class="partner-chip">Ermo</div><div class="partner-chip">Krone</div>
+      <div class="partner-chip">Maschio Gaspardo</div><div class="partner-chip">FAE</div>
+      <div class="partner-chip">Mazzotti</div><div class="partner-chip">Schuitemaker</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-logo-main">Sergio Bassan</div>
+      <span class="footer-logo-sub">Trattori per passione dal 1957</span>
+      <p class="footer-desc">Distributore ufficiale John Deere per Veneto e Friuli-Venezia Giulia. 9 sedi operative, 180 collaboratori, 18.000 clienti.</p>
+      <!-- SOCIAL — grandi, colorati, sempre visibili -->
+      <div class="social-bar">
+        <a href="https://www.facebook.com/bassanjohndeere" class="social-link-light" title="Facebook" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0022 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/bassanteam_official/" class="social-link-light" title="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M7.8 2H16.2C19.4 2 22 4.6 22 7.8V16.2A5.8 5.8 0 0116.2 22H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2M7.6 4A3.6 3.6 0 004 7.6V16.4C4 18.39 5.61 20 7.6 20H16.4A3.6 3.6 0 0020 16.4V7.6C20 5.61 18.39 4 16.4 4H7.6M17.25 5.5A1.25 1.25 0 0118.5 6.75A1.25 1.25 0 0117.25 8A1.25 1.25 0 0116 6.75A1.25 1.25 0 0117.25 5.5M12 7A5 5 0 0117 12A5 5 0 0112 17A5 5 0 017 12A5 5 0 0112 7M12 9A3 3 0 009 12A3 3 0 0012 15A3 3 0 0015 12A3 3 0 0012 9Z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/channel/UC6Lr1KfwR1xspoV1eCOLhKQ" class="social-link-light" title="YouTube" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M10 15L15.19 12L10 9V15M21.56 7.17C21.69 7.64 21.78 8.27 21.84 9.07C21.91 9.87 21.94 10.56 21.94 11.16L22 12C22 14.19 21.84 15.8 21.56 16.83C21.31 17.73 20.73 18.31 19.83 18.56C19.36 18.69 18.5 18.78 17.18 18.84C15.88 18.91 14.69 18.94 13.59 18.94L12 19C7.81 19 5.2 18.84 4.17 18.56C3.27 18.31 2.69 17.73 2.44 16.83C2.31 16.36 2.22 15.73 2.16 14.93C2.09 14.13 2.06 13.44 2.06 12.84L2 12C2 9.81 2.16 8.2 2.44 7.17C2.69 6.27 3.27 5.69 4.17 5.44C4.64 5.31 5.5 5.22 6.82 5.16C8.12 5.09 9.31 5.06 10.41 5.06L12 5C16.19 5 18.8 5.16 19.83 5.44C20.73 5.69 21.31 6.27 21.56 7.17Z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Prodotti</div>
+      <ul class="footer-links">
+        <li><button onclick="showPage('prodotti')">Macchine nuove</button></li>
+        <li><button onclick="showPage('usato')">Usato</button></li>
+        <li><button onclick="showPage('noleggio')">Noleggio</button></li>
+        <li><button onclick="showPage('precision')">Precision Ag</button></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Azienda</div>
+      <ul class="footer-links">
+        <li><button onclick="showPage('chisiamo')">Chi siamo</button></li>
+        <li><button onclick="showPage('assistenza')">Assistenza</button></li>
+        <li><a href="#">Sostenibilità</a></li>
+        <li><a href="#">Lavora con noi</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contatti</div>
+      <ul class="footer-links">
+        <li><a href="tel:+390444971500">0444 971500</a></li>
+        <li><a href="mailto:infobassan@bassan.com">infobassan@bassan.com</a></li>
+        <li><a href="#">WhatsApp 342 9569521</a></li>
+        <li><button onclick="showPage('contatti')">Tutte le sedi</button></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Sergio Bassan S.r.l. — Via Pasubio 64, 36030 Motta di Costabissara (VI)</span>
+    <div style="display:flex;gap:.75rem;">
+      <a href="https://www.facebook.com/bassanjohndeere" style="color:rgba(247,244,238,.4);font-size:.72rem;text-decoration:none;" target="_blank">Facebook</a>
+      <a href="https://www.instagram.com/bassanteam_official/" style="color:rgba(247,244,238,.4);font-size:.72rem;text-decoration:none;" target="_blank">Instagram</a>
+      <a href="https://www.youtube.com/channel/UC6Lr1KfwR1xspoV1eCOLhKQ" style="color:rgba(247,244,238,.4);font-size:.72rem;text-decoration:none;" target="_blank">YouTube</a>
+    </div>
+  </div>
+
+</div><!-- /page-home -->
+
+
+<!-- ══════════════════════
+     PRODOTTI
+══════════════════════ -->
+<div id="page-prodotti" class="page hidden-right">
+  <div class="page-hero" data-ghost="Prodotti">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">Gamma completa</div>
+    <h1 class="page-title">Macchine per ogni<br>esigenza agricola.</h1>
+    <p class="page-subtitle">John Deere, Kobelco, Kramer, Väderstad, Bednar e molti altri. Trova la macchina giusta per il tuo lavoro.</p>
+  </div>
+  <div class="page-content">
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">Tutti</button>
+      <button class="filter-btn" data-filter="trattori">Trattori</button>
+      <button class="filter-btn" data-filter="raccolta">Raccolta</button>
+      <button class="filter-btn" data-filter="semina">Semina</button>
+      <button class="filter-btn" data-filter="movimento">Movimento terra</button>
+      <button class="filter-btn" data-filter="attrezzature">Attrezzature</button>
+    </div>
+    <div class="store-grid">
+      <div class="store-card reveal" data-cat="trattori" onclick="showPage('jd-serie9000')">
+        <div class="store-card-img"><img src="Bassan Immagini/JohnDeereSerie9000.jpg" alt="JD Serie 9000"><span class="store-badge">Top di gamma</span></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">John Deere · Trattori</div>
+          <div class="store-card-name">Serie 9000</div>
+          <p class="store-card-desc">Massima potenza per le lavorazioni più impegnative. Tecnologia avanzata e comfort superiore.</p>
+          <button class="store-card-cta">Dettagli →</button>
+        </div>
+      </div>
+      <div class="store-card reveal" style="transition-delay:.06s" data-cat="trattori" onclick="showPage('jd-serie8000')">
+        <div class="store-card-img"><img src="Bassan Immagini/JohnDeereSerie8000.png" alt="JD Serie 8000"></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">John Deere · Trattori</div>
+          <div class="store-card-name">Serie 8000</div>
+          <p class="store-card-desc">Versatilità e potenza per ogni lavorazione. La scelta preferita dagli agricoltori del Nordest.</p>
+          <button class="store-card-cta">Dettagli →</button>
+        </div>
+      </div>
+      <div class="store-card reveal" style="transition-delay:.12s" data-cat="raccolta" onclick="showPage('jd-f8200')">
+        <div class="store-card-img"><img src="Bassan Immagini/JohnDeereF8200.jpg" alt="JD F8200"><span class="store-badge">Raccolta</span></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">John Deere · Mietitrebbia</div>
+          <div class="store-card-name">F8200</div>
+          <p class="store-card-desc">Mietitrebbia a flusso assiale per la massima resa. Ideale per grano, mais e soia.</p>
+          <button class="store-card-cta">Dettagli →</button>
+        </div>
+      </div>
+      <div class="store-card reveal" style="transition-delay:.18s" data-cat="semina attrezzature" onclick="showPage('bednar-fenix')">
+        <div class="store-card-img"><img src="Bassan Immagini/BednarColtivatoreFenixFn400.jpg" alt="Bednar Fenix FN400"><span class="store-badge">Bednar</span></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">Bednar · Coltivatori</div>
+          <div class="store-card-name">Fenix FN400</div>
+          <p class="store-card-desc">Coltivatore compatto per la lavorazione del terreno. Prestazioni elevate in ogni condizione.</p>
+          <button class="store-card-cta">Dettagli →</button>
+        </div>
+      </div>
+      <div class="store-card reveal" style="transition-delay:.24s" data-cat="semina attrezzature" onclick="showPage('bednar-stripmaster')">
+        <div class="store-card-img"><img src="Bassan Immagini/BednarColtivatoreStripMasterEn6000.jpeg" alt="Bednar StripMaster EN6000"><span class="store-badge">Strip-till</span></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">Bednar · Strip-till</div>
+          <div class="store-card-name">StripMaster EN6000</div>
+          <p class="store-card-desc">Sistema strip-till per una lavorazione minima del terreno. Risparmio di carburante e preservazione del suolo.</p>
+          <button class="store-card-cta">Dettagli →</button>
+        </div>
+      </div>
+      <div class="store-card reveal" style="transition-delay:.30s" data-cat="semina attrezzature" onclick="showPage('bednar-swifter')">
+        <div class="store-card-img"><img src="Bassan Immagini/BednarColtivatoreSwifterSo500F.jpeg" alt="Bednar Swifter SO500F"></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">Bednar · Coltivatori</div>
+          <div class="store-card-name">Swifter SO500F</div>
+          <p class="store-card-desc">Coltivatore superficiale ad alte prestazioni. Ideale per la preparazione del letto di semina.</p>
+          <button class="store-card-cta">Dettagli →</button>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:3rem;padding:2.5rem;background:var(--cream);" class="reveal">
+      <p style="font-size:.88rem;color:var(--mid);margin-bottom:1.25rem">Non trovi quello che cerchi? Contattaci per un preventivo personalizzato.</p>
+      <button class="btn-primary" onclick="showPage('contatti')">Richiedi informazioni →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     SCHEDA: JD SERIE 9000
+══════════════════════ -->
+<div id="page-jd-serie9000" class="page hidden-right">
+  <div class="page-hero" data-ghost="9000">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">John Deere · Trattori di grande potenza</div>
+    <h1 class="page-title">Serie 9000</h1>
+    <p class="page-subtitle">Il top di gamma John Deere per le lavorazioni più impegnative. Potenza, affidabilità e tecnologia senza compromessi.</p>
+  </div>
+  <div class="page-content">
+    <div class="detail-grid">
+      <div class="gallery">
+        <div class="gallery-main"><img src="Bassan Immagini/JohnDeereSerie9000.jpg" alt="John Deere Serie 9000"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/JohnDeereSerie9000-2.png" alt="John Deere Serie 9000 — vista 2"></div>
+        <div class="gallery-thumb" style="background:var(--light-gray);display:flex;align-items:center;justify-content:center;"><span style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--mid);">Altre immagini<br>disponibili in sede</span></div>
+      </div>
+      <div>
+        <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">Caratteristiche</span></div>
+        <h2 class="s-title" style="font-size:2rem;margin-bottom:1.25rem">Massima potenza,<br>massima precisione.</h2>
+        <p style="font-size:.88rem;color:var(--mid);line-height:1.78;margin-bottom:1.5rem">La Serie 9000 John Deere rappresenta il vertice della produzione di trattori agricoli. Progettata per le lavorazioni più impegnative su grandi superfici, combina potenza eccezionale con tecnologie di guida di precisione.</p>
+        <table class="spec-table">
+          <thead><tr><th>Caratteristica</th><th>Dettaglio</th></tr></thead>
+          <tbody>
+            <tr><td class="spec-td-label">Marchio</td><td>John Deere</td></tr>
+            <tr><td class="spec-td-label">Categoria</td><td>Trattori alta potenza</td></tr>
+            <tr><td class="spec-td-label">Utilizzo</td><td>Grandi superfici, aratura profonda</td></tr>
+            <tr><td class="spec-td-label">Compatibilità</td><td>Precision Ag / JD Link</td></tr>
+            <tr><td class="spec-td-label">Disponibilità</td><td>Nuovo e usato</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+          <button class="btn-primary" onclick="showPage('contatti')">Richiedi preventivo →</button>
+          <button class="btn-outline" onclick="showPage('precision')">Scopri Precision Ag</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     SCHEDA: JD SERIE 8000
+══════════════════════ -->
+<div id="page-jd-serie8000" class="page hidden-right">
+  <div class="page-hero" data-ghost="8000">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">John Deere · Trattori</div>
+    <h1 class="page-title">Serie 8000</h1>
+    <p class="page-subtitle">Versatilità e potenza per ogni tipo di lavorazione. La serie più amata dagli agricoltori del Nordest italiano.</p>
+  </div>
+  <div class="page-content">
+    <div class="detail-grid">
+      <div class="gallery">
+        <div class="gallery-main"><img src="Bassan Immagini/JohnDeereSerie8000.png" alt="John Deere Serie 8000"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/JohnDeereSerie8000-1.png" alt="John Deere Serie 8000 — vista 2"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/JohnDeereSerie8000-2.png" alt="John Deere Serie 8000 — vista 3"></div>
+      </div>
+      <div>
+        <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">Caratteristiche</span></div>
+        <h2 class="s-title" style="font-size:2rem;margin-bottom:1.25rem">Versatilità senza<br>compromessi.</h2>
+        <p style="font-size:.88rem;color:var(--mid);line-height:1.78;margin-bottom:1.5rem">La Serie 8000 è il modello di punta per gli agricoltori che cercano il giusto equilibrio tra potenza, consumo e versatilità. Compatibile con tutti i sistemi Precision Ag John Deere.</p>
+        <table class="spec-table">
+          <thead><tr><th>Caratteristica</th><th>Dettaglio</th></tr></thead>
+          <tbody>
+            <tr><td class="spec-td-label">Marchio</td><td>John Deere</td></tr>
+            <tr><td class="spec-td-label">Categoria</td><td>Trattori media-alta potenza</td></tr>
+            <tr><td class="spec-td-label">Utilizzo</td><td>Polivalente — aratura, semina, raccolta</td></tr>
+            <tr><td class="spec-td-label">Compatibilità</td><td>Precision Ag / AutoTrac</td></tr>
+            <tr><td class="spec-td-label">Disponibilità</td><td>Nuovo e usato</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+          <button class="btn-primary" onclick="showPage('contatti')">Richiedi preventivo →</button>
+          <button class="btn-outline" onclick="showPage('usato')">Vedi usato disponibile</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     SCHEDA: JD F8200
+══════════════════════ -->
+<div id="page-jd-f8200" class="page hidden-right">
+  <div class="page-hero" data-ghost="F8200">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">John Deere · Mietitrebbie</div>
+    <h1 class="page-title">F8200</h1>
+    <p class="page-subtitle">Mietitrebbia a flusso assiale per la massima resa in campo. Tecnologia avanzata per ogni coltura.</p>
+  </div>
+  <div class="page-content">
+    <div class="detail-grid">
+      <div class="gallery">
+        <div class="gallery-main"><img src="Bassan Immagini/JohnDeereF8200.jpg" alt="JD F8200"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/JohnDeereF8200-1.jpg" alt="JD F8200 — vista 2"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/JohnDeereF8200-2.jpg" alt="JD F8200 — vista 3"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/JohnDeereF8200-3.jpg" alt="JD F8200 — vista 4"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/JohnDeereF8200-4.jpg" alt="JD F8200 — vista 5"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/JohnDeereF8200-5.jpg" alt="JD F8200 — vista 6"></div>
+      </div>
+      <div>
+        <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">Caratteristiche</span></div>
+        <h2 class="s-title" style="font-size:2rem;margin-bottom:1.25rem">Raccolta ad alto<br>rendimento.</h2>
+        <p style="font-size:.88rem;color:var(--mid);line-height:1.78;margin-bottom:1.5rem">Il John Deere F8200 è una mietitrebbia a flusso assiale progettata per garantire la massima efficienza di raccolta su ogni tipo di coltura: grano, mais, soia, girasole e altro ancora.</p>
+        <table class="spec-table">
+          <thead><tr><th>Caratteristica</th><th>Dettaglio</th></tr></thead>
+          <tbody>
+            <tr><td class="spec-td-label">Marchio</td><td>John Deere</td></tr>
+            <tr><td class="spec-td-label">Tipo</td><td>Mietitrebbia a flusso assiale</td></tr>
+            <tr><td class="spec-td-label">Colture</td><td>Grano, mais, soia, girasole</td></tr>
+            <tr><td class="spec-td-label">Tecnologia</td><td>Precision Harvest integrato</td></tr>
+            <tr><td class="spec-td-label">Disponibilità</td><td>Nuovo e usato</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+          <button class="btn-primary" onclick="showPage('contatti')">Richiedi preventivo →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     SCHEDA: BEDNAR FENIX
+══════════════════════ -->
+<div id="page-bednar-fenix" class="page hidden-right">
+  <div class="page-hero" data-ghost="Fenix">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">Bednar · Coltivatori</div>
+    <h1 class="page-title">Fenix FN400</h1>
+    <p class="page-subtitle">Coltivatore compatto Bednar per la lavorazione del terreno. Elevate prestazioni in ogni condizione di campo.</p>
+  </div>
+  <div class="page-content">
+    <div class="detail-grid">
+      <div class="gallery">
+        <div class="gallery-main"><img src="Bassan Immagini/BednarColtivatoreFenixFn400.jpg" alt="Bednar Fenix FN400"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/BednarColtivatoreFenixFn400-1.jpeg" alt="Fenix FN400 — vista 2"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/BednarColtivatoreFenixFn400-2.jpeg" alt="Fenix FN400 — vista 3"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/BednarColtivatoreFenixFn400-3.jpg" alt="Fenix FN400 — vista 4" style="grid-column:span 2;height:180px;"></div>
+      </div>
+      <div>
+        <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">Caratteristiche</span></div>
+        <h2 class="s-title" style="font-size:2rem;margin-bottom:1.25rem">Lavorazione<br>efficiente del suolo.</h2>
+        <p style="font-size:.88rem;color:var(--mid);line-height:1.78;margin-bottom:1.5rem">Il Bednar Fenix FN400 è un coltivatore compatto progettato per una lavorazione efficiente del terreno. Adatto a diverse condizioni di suolo, garantisce un'ottima preparazione del letto di semina con basso consumo energetico.</p>
+        <table class="spec-table">
+          <thead><tr><th>Caratteristica</th><th>Dettaglio</th></tr></thead>
+          <tbody>
+            <tr><td class="spec-td-label">Marchio</td><td>Bednar</td></tr>
+            <tr><td class="spec-td-label">Modello</td><td>Fenix FN400</td></tr>
+            <tr><td class="spec-td-label">Tipo</td><td>Coltivatore compatto</td></tr>
+            <tr><td class="spec-td-label">Utilizzo</td><td>Lavorazione terreno, preparazione semina</td></tr>
+            <tr><td class="spec-td-label">Disponibilità</td><td>Nuovo</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+          <button class="btn-primary" onclick="showPage('contatti')">Richiedi preventivo →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     SCHEDA: BEDNAR STRIPMASTER
+══════════════════════ -->
+<div id="page-bednar-stripmaster" class="page hidden-right">
+  <div class="page-hero" data-ghost="Strip">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">Bednar · Strip-till</div>
+    <h1 class="page-title">StripMaster EN6000</h1>
+    <p class="page-subtitle">Sistema strip-till per una lavorazione minima del terreno. Risparmio di carburante, meno compattazione, più resa.</p>
+  </div>
+  <div class="page-content">
+    <div class="detail-grid">
+      <div class="gallery">
+        <div class="gallery-main"><img src="Bassan Immagini/BednarColtivatoreStripMasterEn6000.jpeg" alt="StripMaster EN6000"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/BednarColtivatoreStripMasterEn6000-1.jpeg" alt="StripMaster — vista 2"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/BednarColtivatoreStripMasterEn6000-2.jpeg" alt="StripMaster — vista 3"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/BednarColtivatoreStripMasterEn6000-3.jpeg" alt="StripMaster — vista 4" style="grid-column:span 2;height:180px;"></div>
+      </div>
+      <div>
+        <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">Caratteristiche</span></div>
+        <h2 class="s-title" style="font-size:2rem;margin-bottom:1.25rem">Agricoltura<br>conservativa.</h2>
+        <p style="font-size:.88rem;color:var(--mid);line-height:1.78;margin-bottom:1.5rem">Il Bednar StripMaster EN6000 è la soluzione ideale per chi vuole adottare tecniche di agricoltura conservativa. La lavorazione a strisce riduce significativamente i consumi di carburante e preserva la struttura del suolo.</p>
+        <table class="spec-table">
+          <thead><tr><th>Caratteristica</th><th>Dettaglio</th></tr></thead>
+          <tbody>
+            <tr><td class="spec-td-label">Marchio</td><td>Bednar</td></tr>
+            <tr><td class="spec-td-label">Modello</td><td>StripMaster EN6000</td></tr>
+            <tr><td class="spec-td-label">Tipo</td><td>Strip-till — lavorazione minima</td></tr>
+            <tr><td class="spec-td-label">Vantaggio</td><td>–30% consumo carburante</td></tr>
+            <tr><td class="spec-td-label">Disponibilità</td><td>Nuovo</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+          <button class="btn-primary" onclick="showPage('contatti')">Richiedi preventivo →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     SCHEDA: BEDNAR SWIFTER
+══════════════════════ -->
+<div id="page-bednar-swifter" class="page hidden-right">
+  <div class="page-hero" data-ghost="Swifter">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">Bednar · Coltivatori superficiali</div>
+    <h1 class="page-title">Swifter SO500F</h1>
+    <p class="page-subtitle">Coltivatore superficiale ad alte prestazioni per la preparazione ottimale del letto di semina.</p>
+  </div>
+  <div class="page-content">
+    <div class="detail-grid">
+      <div class="gallery">
+        <div class="gallery-main"><img src="Bassan Immagini/BednarColtivatoreSwifterSo500F.jpeg" alt="Swifter SO500F"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/BednarColtivatoreSwifterSo500F-1.jpeg" alt="Swifter — vista 2"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/BednarColtivatoreSwifterSo500F-2.jpeg" alt="Swifter — vista 3"></div>
+        <div class="gallery-thumb"><img src="Bassan Immagini/BednarColtivatoreSwifterSo500F-3.jpeg" alt="Swifter — vista 4" style="grid-column:span 2;height:180px;"></div>
+      </div>
+      <div>
+        <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">Caratteristiche</span></div>
+        <h2 class="s-title" style="font-size:2rem;margin-bottom:1.25rem">Preparazione terreno<br>ad alta velocità.</h2>
+        <p style="font-size:.88rem;color:var(--mid);line-height:1.78;margin-bottom:1.5rem">Il Bednar Swifter SO500F è progettato per lavorare in modo rapido ed efficiente negli strati superficiali del terreno. Perfetto per la preparazione del letto di semina e per la lavorazione post-raccolta.</p>
+        <table class="spec-table">
+          <thead><tr><th>Caratteristica</th><th>Dettaglio</th></tr></thead>
+          <tbody>
+            <tr><td class="spec-td-label">Marchio</td><td>Bednar</td></tr>
+            <tr><td class="spec-td-label">Modello</td><td>Swifter SO500F</td></tr>
+            <tr><td class="spec-td-label">Tipo</td><td>Coltivatore superficiale</td></tr>
+            <tr><td class="spec-td-label">Utilizzo</td><td>Preparazione semina, post-raccolta</td></tr>
+            <tr><td class="spec-td-label">Disponibilità</td><td>Nuovo</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+          <button class="btn-primary" onclick="showPage('contatti')">Richiedi preventivo →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     USATO
+══════════════════════ -->
+<div id="page-usato" class="page hidden-right">
+  <div class="page-hero" data-ghost="Usato">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">Macchine certificate</div>
+    <h1 class="page-title">Usato selezionato<br>e garantito.</h1>
+    <p class="page-subtitle">Parco macchine usate revisionate e certificate. Trattori, mietitrebbie, telescopici e attrezzature per ogni budget.</p>
+  </div>
+  <div class="page-content">
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">Tutti</button>
+      <button class="filter-btn" data-filter="trattori">Trattori</button>
+      <button class="filter-btn" data-filter="raccolta">Raccolta</button>
+      <button class="filter-btn" data-filter="attrezzature">Attrezzature</button>
+    </div>
+    <div class="store-grid">
+      <div class="store-card reveal" data-cat="trattori">
+        <div class="store-card-img"><img src="Bassan Immagini/JohnDeereSerie8000-1.png" alt="JD 8R usato"><span class="store-badge">Disponibile</span></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">Trattore · John Deere</div>
+          <div class="store-card-name">John Deere 8R — Anno 2021</div>
+          <p class="store-card-desc">850 ore lavorate. Condizioni eccellenti. Dotato di AutoTrac e JD Link integrato.</p>
+          <button class="store-card-cta" onclick="showPage('contatti')">Richiedi info →</button>
+        </div>
+      </div>
+      <div class="store-card reveal" style="transition-delay:.08s" data-cat="raccolta">
+        <div class="store-card-img"><img src="Bassan Immagini/JohnDeereF8200-2.jpg" alt="F8200 usato"><span class="store-badge">Pronta consegna</span></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">Mietitrebbia · John Deere</div>
+          <div class="store-card-name">John Deere F8200 — Anno 2019</div>
+          <p class="store-card-desc">1.200 ore. Revisione completa eseguita. Ideale per grano e mais.</p>
+          <button class="store-card-cta" onclick="showPage('contatti')">Richiedi info →</button>
+        </div>
+      </div>
+      <div class="store-card reveal" style="transition-delay:.16s" data-cat="attrezzature">
+        <div class="store-card-img"><img src="Bassan Immagini/BednarColtivatoreFenixFn400-1.jpeg" alt="Bednar usato"><span class="store-badge">Disponibile</span></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">Coltivatore · Bednar</div>
+          <div class="store-card-name">Bednar Fenix FN400 — Anno 2020</div>
+          <p class="store-card-desc">Poco utilizzato, in ottimo stato. Perfetto per la preparazione del letto di semina.</p>
+          <button class="store-card-cta" onclick="showPage('contatti')">Richiedi info →</button>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--cream);padding:2.5rem;margin-top:2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem;" class="reveal">
+      <div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--green-dark);margin-bottom:.4rem">Vuoi far valutare il tuo usato?</h3>
+        <p style="font-size:.82rem;color:var(--mid)">Valutazione rapida e senza impegno. Contatta il nostro reparto usato.</p>
+      </div>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+        <a href="mailto:mircofioraso@bassan.com" class="btn-outline">Email usato</a>
+        <button class="btn-primary" onclick="showPage('contatti')">Contattaci →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     NOLEGGIO
+══════════════════════ -->
+<div id="page-noleggio" class="page hidden-right">
+  <div class="page-hero" data-ghost="Noleggio">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">Flessibilità operativa</div>
+    <h1 class="page-title">Noleggio macchine<br>su misura.</h1>
+    <p class="page-subtitle">La soluzione ideale per esigenze stagionali o straordinarie. Trattori, escavatori, sollevatori e attrezzature disponibili.</p>
+  </div>
+  <div class="page-content">
+    <div class="store-grid">
+      <div class="store-card reveal">
+        <div class="store-card-img"><img src="Bassan Immagini/JohnDeereSerie8000-2.png" alt="Trattori noleggio"></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">Noleggio · Trattori</div>
+          <div class="store-card-name">Trattori John Deere</div>
+          <p class="store-card-desc">Ampia gamma di trattori a noleggio. Potenze da 60 a 400+ cv. Giornaliero, settimanale o stagionale.</p>
+          <button class="store-card-cta" onclick="showPage('contatti')">Richiedi disponibilità →</button>
+        </div>
+      </div>
+      <div class="store-card reveal" style="transition-delay:.08s">
+        <div class="store-card-img"><img src="Bassan Immagini/JohnDeereF8200-3.jpg" alt="Mietitrebbie noleggio"></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">Noleggio · Raccolta</div>
+          <div class="store-card-name">Macchine da raccolta</div>
+          <p class="store-card-desc">Mietitrebbie e macchine specializzate a noleggio per la campagna di raccolta senza investimento fisso.</p>
+          <button class="store-card-cta" onclick="showPage('contatti')">Richiedi disponibilità →</button>
+        </div>
+      </div>
+      <div class="store-card reveal" style="transition-delay:.16s">
+        <div class="store-card-img"><img src="Bassan Immagini/BednarColtivatoreSwifterSo500F-2.jpeg" alt="Attrezzature noleggio"></div>
+        <div class="store-card-body">
+          <div class="store-card-cat">Noleggio · Attrezzature</div>
+          <div class="store-card-name">Attrezzature varie</div>
+          <p class="store-card-desc">Coltivatori, erpici, spandiletame e molto altro. Compatibili con i trattori a noleggio.</p>
+          <button class="store-card-cta" onclick="showPage('contatti')">Richiedi disponibilità →</button>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--green-dark);padding:3rem;margin-top:2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem;" class="reveal">
+      <div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--cream);margin-bottom:.5rem">Vuoi un preventivo noleggio?</h3>
+        <p style="font-size:.85rem;color:rgba(247,244,238,.65)">📱 320 4854687 · noleggio@bassan.com</p>
+      </div>
+      <button class="btn-primary" onclick="showPage('contatti')">Contattaci →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     ASSISTENZA
+══════════════════════ -->
+<div id="page-assistenza" class="page hidden-right">
+  <div class="page-hero" data-ghost="Service">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">Post vendita</div>
+    <h1 class="page-title">Sempre al tuo fianco,<br>anche nel weekend.</h1>
+    <p class="page-subtitle">Officine interne, magazzini ricambi riforniti e servizio weekend attivo da aprile a ottobre su tutte le sedi.</p>
+  </div>
+  <div class="page-content">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;">
+      <div>
+        <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">Il servizio</span></div>
+        <h2 class="s-title" style="font-size:2rem;margin-bottom:2rem">Eccellenza nel post-vendita.</h2>
+        <div style="background:var(--cream);padding:1.75rem 2rem;border-left:2px solid var(--gold);margin-bottom:1rem;" class="reveal">
+          <div style="font-weight:600;color:var(--green-dark);margin-bottom:.4rem;">🔧 Officine interne</div>
+          <p style="font-size:.82rem;color:var(--mid);line-height:1.65;">Quasi tutte le sedi dispongono di officina interna con tecnici certificati John Deere.</p>
+        </div>
+        <div style="background:var(--cream);padding:1.75rem 2rem;border-left:2px solid var(--gold);margin-bottom:1rem;" class="reveal" style="transition-delay:.1s">
+          <div style="font-weight:600;color:var(--green-dark);margin-bottom:.4rem;">📦 Magazzino ricambi</div>
+          <p style="font-size:.82rem;color:var(--mid);line-height:1.65;">Tutte le filiali hanno magazzino ricambi rifornito per un servizio rapido e completo.</p>
+        </div>
+        <div style="background:var(--cream);padding:1.75rem 2rem;border-left:2px solid var(--gold);margin-bottom:1rem;" class="reveal">
+          <div style="font-weight:600;color:var(--green-dark);margin-bottom:.4rem;">🎓 Certified Dealer Instructor</div>
+          <p style="font-size:.82rem;color:var(--mid);line-height:1.65;">Formazione continua del team tecnico certificata direttamente da John Deere.</p>
+        </div>
+        <div style="background:var(--green-dark);padding:2rem;margin-top:1.5rem;color:var(--cream);" class="reveal">
+          <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:.75rem;">🟢 Servizio weekend attivo</div>
+          <p style="font-size:.82rem;color:rgba(247,244,238,.75);line-height:1.75;margin-bottom:.75rem;">Da aprile fino all'ultimo weekend di ottobre.<br><strong style="color:var(--cream)">Sabato:</strong> 13:30 — 18:30<br><strong style="color:var(--cream)">Domenica:</strong> 8:00 — 18:30</p>
+          <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--gold);">€ 100 diritto di chiamata</div>
+        </div>
+      </div>
+      <div>
+        <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">Le nostre filiali</span></div>
+        <h2 class="s-title" style="font-size:2rem;margin-bottom:1.5rem">9 sedi operative.</h2>
+        <table class="branch-table reveal">
+          <thead><tr><th>Sede</th><th>Assistenza</th><th>Ricambi</th></tr></thead>
+          <tbody>
+            <tr><td class="branch-name">Costabissara (VI)</td><td>345 4679465</td><td>338 6040387</td></tr>
+            <tr><td class="branch-name">Candiana (PD)</td><td>324 9005636</td><td>329 8721619</td></tr>
+            <tr><td class="branch-name">Adria (RO)</td><td>388 5627711</td><td>388 5627711</td></tr>
+            <tr><td class="branch-name">Torre di Mosto (VE)</td><td>389 7920028</td><td>380 1766245</td></tr>
+            <tr><td class="branch-name">Basiliano (UD)</td><td>320 6351485</td><td>334 9689804</td></tr>
+            <tr><td class="branch-name">Oppeano (VR)</td><td>346 0955848</td><td>348 7479932</td></tr>
+            <tr><td class="branch-name">Vedelago (TV)</td><td>329 5497621</td><td>349 8814110</td></tr>
+            <tr><td class="branch-name">Bolzano Vicentino (VI)</td><td colspan="2">Via Pasubio</td></tr>
+            <tr><td class="branch-name">Monastir (CA)</td><td colspan="2">Sardegna</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     PRECISION AG
+══════════════════════ -->
+<div id="page-precision" class="page hidden-right">
+  <div class="page-hero" data-ghost="Precision">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">Tecnologia 4.0</div>
+    <h1 class="page-title">Massima resa,<br>minima fatica.</h1>
+    <p class="page-subtitle">Guida satellitare John Deere, monitor di campo e sistemi di connessione. Scegli il pacchetto giusto per te.</p>
+  </div>
+  <div class="page-content">
+    <div class="prec-grid">
+      <div class="prec-card reveal">
+        <div class="prec-num">01</div>
+        <div class="prec-title">Macchina già predisposta</div>
+        <p class="prec-desc">Hai una macchina già predisposta per la guida satellitare? Installa il kit Precision Ag Essentials.</p>
+        <ul class="prec-includes">
+          <li>Monitor G5 Plus</li><li>Ricevitore StarFire 7500</li>
+          <li>Modem JD Link M</li><li>Account Operation Center</li>
+        </ul>
+        <div class="prec-price">da 2.990 €</div>
+        <div style="font-size:.73rem;color:var(--mid);margin-top:5px;">+ licenza annuale da 990 €</div>
+      </div>
+      <div class="prec-card featured reveal" style="transition-delay:.08s">
+        <div style="position:absolute;top:1rem;right:1rem;background:var(--gold);color:var(--green-dark);font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;">Universale</div>
+        <div class="prec-num">02</div>
+        <div class="prec-title">Qualsiasi trattore</div>
+        <p class="prec-desc">Kit universale adatto ad ogni trattore, incluso ATU 300 per sterzo automatico. Installazione compresa.</p>
+        <ul class="prec-includes">
+          <li>Precision Ag Essentials</li><li>Kit ATU 300</li>
+          <li>Installazione inclusa</li><li>Licenza annuale</li>
+        </ul>
+        <div class="prec-price">da 4.990 €</div>
+      </div>
+      <div class="prec-card reveal" style="transition-delay:.16s">
+        <div class="prec-num">03</div>
+        <div class="prec-title">Massima precisione</div>
+        <p class="prec-desc">Per lavorazioni ad alto valore aggiunto come la semina. Segnale SF-RTK o M-RTK centimetrico.</p>
+        <ul class="prec-includes">
+          <li>Aggiornamento segnale SF1</li><li>SF-RTK o M-RTK</li>
+          <li>Precisione centimetrica</li><li>Ideale per semina</li>
+        </ul>
+        <div class="prec-price">da 500 €/anno</div>
+      </div>
+    </div>
+    <div style="background:var(--cream);padding:3rem;margin-top:2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem;" class="reveal">
+      <div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--green-dark);margin-bottom:.5rem">Consulenza gratuita in campo.</h3>
+        <p style="font-size:.82rem;color:var(--mid)">I nostri specialisti Precision Ag vengono direttamente da te per valutare la soluzione migliore.</p>
+      </div>
+      <button class="btn-primary" onclick="showPage('contatti')">Richiedi consulenza →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     CHI SIAMO
+══════════════════════ -->
+<div id="page-chisiamo" class="page hidden-right">
+  <div class="page-hero" data-ghost="Bassan">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">L'azienda</div>
+    <h1 class="page-title">Una storia italiana<br>fatta di passione.</h1>
+    <p class="page-subtitle">Dal 1957 al servizio degli agricoltori del Nordest. Oltre 65 anni di crescita, innovazione e radicamento nel territorio.</p>
+  </div>
+  <div class="page-content">
+    <div class="chisiamo-grid">
+      <div class="chisiamo-body">
+        <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">La nostra storia</span></div>
+        <h2 class="s-title" style="font-size:2.2rem;margin-bottom:1.75rem">Mani macchiate d'olio,<br>amore per la propria terra.</h2>
+        <p>Fondata nel <strong>1957 da Piero Bassan</strong>, la Sergio Bassan S.r.l. nasce come piccolo concessionario nel territorio vicentino con una grande passione per le macchine agricole.</p>
+        <p>Dal <strong>1993 è concessionario ufficiale John Deere</strong> per Veneto e Friuli-Venezia Giulia. Nel 2016 entra nel movimento terra con Kobelco, espandendo poi il portafoglio con Kramer, Väderstad, Bednar e Ploeger.</p>
+        <p>Oggi conta <strong>180 collaboratori</strong>, 9 sedi e oltre <strong>18.000 clienti</strong>. Nel 2023 ha superato i <strong>107 milioni di euro</strong> di fatturato, confermandosi punto di riferimento per l'agricoltura del Nordest.</p>
+        <div style="background:var(--green-dark);padding:2rem;margin-top:2rem;border-left:3px solid var(--gold);">
+          <div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-style:italic;color:var(--cream);line-height:1.65;margin-bottom:.75rem;">"La terra non è un'eredità ricevuta dai nostri Padri, ma un prestito da restituire ai nostri figli."</div>
+          <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">Filosofia Bassan — Bilancio Sostenibilità 2023</div>
+        </div>
+        <!-- Social anche su chi siamo -->
+        <div style="margin-top:2rem;">
+          <div style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;">Seguici</div>
+          <div class="social-bar">
+            <a href="https://www.facebook.com/bassanjohndeere" class="social-link" title="Facebook" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0022 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/bassanteam_official/" class="social-link" title="Instagram" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M7.8 2H16.2C19.4 2 22 4.6 22 7.8V16.2A5.8 5.8 0 0116.2 22H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2M7.6 4A3.6 3.6 0 004 7.6V16.4C4 18.39 5.61 20 7.6 20H16.4A3.6 3.6 0 0020 16.4V7.6C20 5.61 18.39 4 16.4 4H7.6M17.25 5.5A1.25 1.25 0 0118.5 6.75A1.25 1.25 0 0117.25 8A1.25 1.25 0 0116 6.75A1.25 1.25 0 0117.25 5.5M12 7A5 5 0 0117 12A5 5 0 0112 17A5 5 0 017 12A5 5 0 0112 7M12 9A3 3 0 009 12A3 3 0 0012 15A3 3 0 0015 12A3 3 0 0012 9Z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/channel/UC6Lr1KfwR1xspoV1eCOLhKQ" class="social-link" title="YouTube" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M10 15L15.19 12L10 9V15M21.56 7.17C21.69 7.64 21.78 8.27 21.84 9.07C21.91 9.87 21.94 10.56 21.94 11.16L22 12C22 14.19 21.84 15.8 21.56 16.83C21.31 17.73 20.73 18.31 19.83 18.56C19.36 18.69 18.5 18.78 17.18 18.84C15.88 18.91 14.69 18.94 13.59 18.94L12 19C7.81 19 5.2 18.84 4.17 18.56C3.27 18.31 2.69 17.73 2.44 16.83C2.31 16.36 2.22 15.73 2.16 14.93C2.09 14.13 2.06 13.44 2.06 12.84L2 12C2 9.81 2.16 8.2 2.44 7.17C2.69 6.27 3.27 5.69 4.17 5.44C4.64 5.31 5.5 5.22 6.82 5.16C8.12 5.09 9.31 5.06 10.41 5.06L12 5C16.19 5 18.8 5.16 19.83 5.44C20.73 5.69 21.31 6.27 21.56 7.17Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="chisiamo-img reveal">
+        <img src="Bassan Immagini/JohnDeereSerie9000-2.png" alt="John Deere in campo">
+      </div>
+    </div>
+    <div class="nums-row reveal">
+      <div class="num-box"><div class="num-val">1957</div><div class="num-label">Fondazione</div></div>
+      <div class="num-box"><div class="num-val">180</div><div class="num-label">Collaboratori</div></div>
+      <div class="num-box"><div class="num-val">18K+</div><div class="num-label">Clienti</div></div>
+      <div class="num-box"><div class="num-val">107M€</div><div class="num-label">Fatturato 2023</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     CONTATTI
+══════════════════════ -->
+<div id="page-contatti" class="page hidden-right">
+  <div class="page-hero" data-ghost="Contatti">
+    <div class="page-hero-accent"></div>
+    <button class="back-btn" onclick="goBack()">← Indietro</button>
+    <div class="page-eyebrow">Siamo qui per te</div>
+    <h1 class="page-title">Parliamo del tuo<br>prossimo progetto.</h1>
+    <p class="page-subtitle">Contattaci per qualsiasi informazione su prodotti, noleggio, assistenza o acquisto. Risposta entro 24 ore.</p>
+  </div>
+  <div class="page-content">
+    <div class="contatti-grid">
+      <div class="reveal">
+        <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">Scrivici</span></div>
+        <h2 class="s-title" style="font-size:2rem;margin-bottom:2rem">Invia una richiesta.</h2>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Nome</label><input type="text" class="form-input" placeholder="Il tuo nome"></div>
+          <div class="form-group"><label class="form-label">Cognome</label><input type="text" class="form-input" placeholder="Il tuo cognome"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="email@esempio.it"></div>
+        <div class="form-group"><label class="form-label">Telefono</label><input type="tel" class="form-input" placeholder="+39 000 000 0000"></div>
+        <div class="form-group">
+          <label class="form-label">Reparto</label>
+          <select class="form-select">
+            <option>Seleziona...</option>
+            <option>Vendita macchine nuove</option>
+            <option>Usato</option><option>Noleggio</option>
+            <option>Assistenza / Ricambi</option>
+            <option>Precision Ag</option>
+            <option>Informazioni generali</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Messaggio</label><textarea class="form-textarea" placeholder="Descrivi la tua richiesta..."></textarea></div>
+        <button class="btn-primary" style="width:100%;justify-content:center;display:flex;">Invia richiesta →</button>
+      </div>
+      <div class="reveal" style="transition-delay:.18s">
+        <div class="s-label"><div class="s-label-line"></div><span class="s-label-text">Trovaci</span></div>
+        <h2 class="s-title" style="font-size:2rem;margin-bottom:2rem">Contatti diretti.</h2>
+        <div class="contact-box"><span class="contact-icon">📞</span><div><div class="contact-title">Centralino</div><div class="contact-text"><a href="tel:+390444971500">0444 971500</a> · Lun–Ven 8–18</div></div></div>
+        <div class="contact-box"><span class="contact-icon">💬</span><div><div class="contact-title">WhatsApp</div><div class="contact-text"><a href="#">342 9569521</a></div></div></div>
+        <div class="contact-box"><span class="contact-icon">✉️</span><div><div class="contact-title">Email</div><div class="contact-text"><a href="mailto:infobassan@bassan.com">infobassan@bassan.com</a></div></div></div>
+        <div class="contact-box"><span class="contact-icon">📍</span><div><div class="contact-title">Sede principale</div><div class="contact-text">Via Pasubio 64, 36030<br>Motta di Costabissara (VI)</div></div></div>
+        <!-- Social in contatti -->
+        <div style="margin-top:1.5rem;">
+          <div style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;">Seguici sui social</div>
+          <div class="social-bar">
+            <a href="https://www.facebook.com/bassanjohndeere" class="social-link" title="Facebook" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0022 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/bassanteam_official/" class="social-link" title="Instagram" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M7.8 2H16.2C19.4 2 22 4.6 22 7.8V16.2A5.8 5.8 0 0116.2 22H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2M7.6 4A3.6 3.6 0 004 7.6V16.4C4 18.39 5.61 20 7.6 20H16.4A3.6 3.6 0 0020 16.4V7.6C20 5.61 18.39 4 16.4 4H7.6M17.25 5.5A1.25 1.25 0 0118.5 6.75A1.25 1.25 0 0117.25 8A1.25 1.25 0 0116 6.75A1.25 1.25 0 0117.25 5.5M12 7A5 5 0 0117 12A5 5 0 0112 17A5 5 0 017 12A5 5 0 0112 7M12 9A3 3 0 009 12A3 3 0 0012 15A3 3 0 0015 12A3 3 0 0012 9Z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/channel/UC6Lr1KfwR1xspoV1eCOLhKQ" class="social-link" title="YouTube" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M10 15L15.19 12L10 9V15M21.56 7.17C21.69 7.64 21.78 8.27 21.84 9.07C21.91 9.87 21.94 10.56 21.94 11.16L22 12C22 14.19 21.84 15.8 21.56 16.83C21.31 17.73 20.73 18.31 19.83 18.56C19.36 18.69 18.5 18.78 17.18 18.84C15.88 18.91 14.69 18.94 13.59 18.94L12 19C7.81 19 5.2 18.84 4.17 18.56C3.27 18.31 2.69 17.73 2.44 16.83C2.31 16.36 2.22 15.73 2.16 14.93C2.09 14.13 2.06 13.44 2.06 12.84L2 12C2 9.81 2.16 8.2 2.44 7.17C2.69 6.27 3.27 5.69 4.17 5.44C4.64 5.31 5.5 5.22 6.82 5.16C8.12 5.09 9.31 5.06 10.41 5.06L12 5C16.19 5 18.8 5.16 19.83 5.44C20.73 5.69 21.31 6.27 21.56 7.17Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════ SCRIPT ══════ -->
+<script>
+let currentPage = 'home';
+let history = ['home'];
+
+function showPage(id) {
+  const c = document.getElementById('page-' + currentPage);
+  const n = document.getElementById('page-' + id);
+  if (!n || id === currentPage) return;
+  c.classList.remove('active'); c.classList.add('hidden-left');
+  n.classList.remove('hidden-right','hidden-left'); n.classList.add('active');
+  n.scrollTop = 0;
+  history.push(id); currentPage = id;
+  setTimeout(() => triggerReveals(n), 80);
+}
+function goBack() {
+  if (history.length <= 1) { goHome(); return; }
+  history.pop();
+  const prevId = history[history.length-1] || 'home';
+  const c = document.getElementById('page-' + currentPage);
+  const p = document.getElementById('page-' + prevId);
+  c.classList.remove('active'); c.classList.add('hidden-right');
+  p.classList.remove('hidden-left','hidden-right'); p.classList.add('active');
+  currentPage = prevId;
+}
+function goHome() {
+  if (currentPage === 'home') return;
+  document.getElementById('page-' + currentPage).classList.remove('active');
+  document.getElementById('page-' + currentPage).classList.add('hidden-right');
+  const h = document.getElementById('page-home');
+  h.classList.remove('hidden-left','hidden-right'); h.classList.add('active');
+  history = ['home']; currentPage = 'home';
+}
+
+// Filters
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('.filter-bar').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    btn.closest('.page-content').querySelectorAll('[data-cat]').forEach(card => {
+      card.style.display = (f === 'all' || (card.dataset.cat||'').includes(f)) ? '' : 'none';
+    });
+  });
+});
+
+// Reveal
+function triggerReveals(container) {
+  const els = (container||document).querySelectorAll('.reveal:not(.visible)');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i*55); obs.unobserve(e.target); }
+    });
+  }, {threshold:0.08});
+  els.forEach(el => obs.observe(el));
+}
+triggerReveals();
+</script>
+</body>
+</html>
